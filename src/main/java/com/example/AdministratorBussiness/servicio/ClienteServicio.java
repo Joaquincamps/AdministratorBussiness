@@ -30,11 +30,13 @@ public class ClienteServicio {
         return clienteRepositorio.findAll();
     }
 
-    public void buscarClientePorId(Long id){
+    public void buscarClientePorId(Long id) {
         Cliente clienteBuscar = clienteRepositorio.findById(id).orElseThrow(
-                ()-> new RuntimeException("Cliente no encontrado")
+                () -> new RuntimeException("Cliente no encontrado")
         );
     }
 
-    
+    public void buscarClientePorTelefono(int telefono){
+        Cliente clienteBuscar = clienteRepositorio.findByTelefono(telefono);
+    }
 }
