@@ -1,5 +1,6 @@
 package com.example.AdministratorBussiness.servicio;
 
+import com.example.AdministratorBussiness.dto.cliente.DtoActualizarCliente;
 import com.example.AdministratorBussiness.dto.cliente.DtoCrearCliente;
 import com.example.AdministratorBussiness.modelo.Cliente;
 import com.example.AdministratorBussiness.repositorio.ClienteRepositorio;
@@ -39,4 +40,23 @@ public class ClienteServicio {
     public void buscarClientePorTelefono(int telefono){
         Cliente clienteBuscar = clienteRepositorio.findByTelefono(telefono);
     }
+
+    public void eliminarClientePorId(Long id){
+        Cliente clienteBuscar = clienteRepositorio.findById(id).orElseThrow(
+            ()-> new RuntimeException("El cliente no exsite")
+        );
+        clienteRepositorio.deleteById(id);
+    }
+
+    public void actualizarCliente(DtoActualizarCLiente actualizarCliente){
+
+        Cliente clienteBuscar = clienteRepositorio.findById(actualizarCliente.getId()).orElseThrow(
+            ()-> new RuntimeException("Cliente no encontrado")
+        );
+        clienteBuscar.setTelefono(actualizarCliente.getTelefono());
+        clienteBuscar.setEmail(actualizarCliente.getEmail());
+        clienteRepositorio.save(clienteBuscar);
+
+    }
+    
 }
