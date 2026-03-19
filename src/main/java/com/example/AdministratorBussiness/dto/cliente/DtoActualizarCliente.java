@@ -1,6 +1,6 @@
 package com.example.AdministratorBussiness.dto.cliente;
 
-public class DtoActualizarCliente{
+public class DtoActualizarCliente {
 
     private Long id;
 
@@ -8,18 +8,25 @@ public class DtoActualizarCliente{
 
     private String email;
 
-
     public DtoActualizarCliente() {
     }
 
-
-    public DtoActualizarCliente(int telefono, String email) {
+    public DtoActualizarCliente(Long id, int telefono, String email) {
+        this.id = id;
         this.telefono = telefono;
         this.email = email;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public int getTelefono() {
-        return this.telefono;
+        return telefono;
     }
 
     public void setTelefono(int telefono) {
@@ -27,20 +34,10 @@ public class DtoActualizarCliente{
     }
 
     public String getEmail() {
-        return this.email;
+        return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
-
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-    
 }

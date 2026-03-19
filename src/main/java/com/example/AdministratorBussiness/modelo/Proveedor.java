@@ -2,10 +2,12 @@ package com.example.AdministratorBussiness.modelo;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-public class Proveedor{
+@NoArgsConstructor
+public class Proveedor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,17 +19,14 @@ public class Proveedor{
 
     private int telefono;
 
-    private String emai;
-    
+    @Column(unique = true)
+    private String email;
 
-    public Proveedor() {
-    }
-
-    public Proveedor(String nombre, String contacto, int telefono, String emai) {
+    public Proveedor(String nombre, String contacto, int telefono, String email) {
         this.nombre = nombre;
         this.contacto = contacto;
         this.telefono = telefono;
-        this.emai = emai;
+        this.email = email;
     }
 
 }

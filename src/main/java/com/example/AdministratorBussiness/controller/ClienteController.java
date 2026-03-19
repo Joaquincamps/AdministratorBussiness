@@ -1,5 +1,9 @@
 package com.example.AdministratorBussiness.controller;
 
+import com.example.AdministratorBussiness.dto.cliente.DtoActualizarCliente;
+import com.example.AdministratorBussiness.dto.cliente.DtoCrearCliente;
+import com.example.AdministratorBussiness.modelo.Cliente;
+import com.example.AdministratorBussiness.servicio.ClienteServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,12 +21,12 @@ public class ClienteController{
     @PostMapping("/clientes")
     public String agregarCliente(@ModelAttribute DtoCrearCliente DtoCrearCliente, Model model){
         try{
-            clienteServicio.agregarCliente(cliente);
+            clienteServicio.crearCliente(DtoCrearCliente);
             model.addAttribute("mensaje","Cliente agregado con éxito");
             model.addAttribute("cliente",new Cliente());
         }catch(Exception e){
             model.addAttribute("error", e.getMessage());
-            model.addAttribute("cliente",cliente);
+            model.addAttribute("cliente",DtoCrearCliente);
         }
 
         return "clientes";
@@ -37,12 +41,14 @@ public class ClienteController{
 
     @GetMapping("/clientes/eliminar/{id}")
     public String eliminarCliente(Model model, @PathVariable Long id){
-        model.addAttribute("clientes",clienteServicio.eliminarCliente)
+        clienteServicio.eliminarClientePorId(id);
+        model.addAttribute("clientes",model);
+        return "clientes";
     }
 
     @PostMapping("/clientes/actualizar")
-    public String actualizarCliente(DtoActualizarCLiente updateCliente){
-        clienteServicio.actualizarCliente(updateCliente);
+    public String actualizarCliente(DtoActualizarCliente updateCliente){
+        clienteServicio.actuCliente(updateCliente);
         return "clientes";
     }   
 

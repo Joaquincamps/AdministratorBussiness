@@ -37,26 +37,24 @@ public class ClienteServicio {
         );
     }
 
-    public void buscarClientePorTelefono(int telefono){
+    public void buscarClientePorTelefono(int telefono) {
         Cliente clienteBuscar = clienteRepositorio.findByTelefono(telefono);
     }
 
-    public void eliminarClientePorId(Long id){
+    public void eliminarClientePorId(Long id) {
         Cliente clienteBuscar = clienteRepositorio.findById(id).orElseThrow(
-            ()-> new RuntimeException("El cliente no exsite")
+                () -> new RuntimeException("El cliente no exsite")
         );
         clienteRepositorio.deleteById(id);
     }
 
-    public void actualizarCliente(DtoActualizarCLiente actualizarCliente){
-
-        Cliente clienteBuscar = clienteRepositorio.findById(actualizarCliente.getId()).orElseThrow(
-            ()-> new RuntimeException("Cliente no encontrado")
+    public void actuCliente(DtoActualizarCliente dtoActualizarCliente) {
+        Cliente clienteBuscar = clienteRepositorio.findById(dtoActualizarCliente.getId()).orElseThrow(
+                () -> new RuntimeException("El cliente no éxiste.")
         );
-        clienteBuscar.setTelefono(actualizarCliente.getTelefono());
-        clienteBuscar.setEmail(actualizarCliente.getEmail());
+        clienteBuscar.setTelefono(dtoActualizarCliente.getTelefono());
+        clienteBuscar.setEmail(dtoActualizarCliente.getEmail());
         clienteRepositorio.save(clienteBuscar);
-
     }
-    
+
 }

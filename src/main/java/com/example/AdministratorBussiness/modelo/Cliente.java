@@ -1,13 +1,15 @@
 package com.example.AdministratorBussiness.modelo;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
 @Data
+@Builder
+@Entity
 public class Cliente {
 
     @Id
@@ -44,4 +46,6 @@ public class Cliente {
         this.email = email;
         this.citas = new ArrayList<>();
     }
+
+
 }
