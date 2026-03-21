@@ -20,5 +20,12 @@ public class UsuarioAdministradorServicio {
         }
     }
 
-
+    public boolean logearAdmin(UsuarioAdministrador usuarioAdministrador) {
+        if (usuarioAdministradorRepositorio.existsByNombre(usuarioAdministrador.getNombre()) &&
+                usuarioAdministradorRepositorio.existsByPassword(usuarioAdministrador.getPassword())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

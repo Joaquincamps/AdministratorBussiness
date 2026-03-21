@@ -8,9 +8,9 @@ import javax.sound.sampled.Port;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
 @Data
 @NoArgsConstructor
+@Entity
 public class Proveedor {
 
     @Id

@@ -7,9 +7,8 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
-@Builder
 @Entity
+@Data
 public class Cliente {
 
     @Id

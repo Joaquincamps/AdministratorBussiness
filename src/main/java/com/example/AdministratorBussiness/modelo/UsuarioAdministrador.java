@@ -4,9 +4,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Data
 @NoArgsConstructor
+@Entity
 public class UsuarioAdministrador {
 
     @Id
@@ -16,10 +16,10 @@ public class UsuarioAdministrador {
     @Column(unique = true)
     private String nombre;
 
-    private String pass;
+    private String password;
 
-    public UsuarioAdministrador(String nombre, String pass) {
+    public UsuarioAdministrador(String nombre, String password) {
         this.nombre = nombre;
-        this.pass = pass;
+        this.password = password;
     }
 }

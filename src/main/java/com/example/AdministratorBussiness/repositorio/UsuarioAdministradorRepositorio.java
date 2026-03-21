@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface UsuarioAdministradorRepositorio extends JpaRepository<UsuarioAdministrador,Long> {
 
     boolean existsByNombre(String nombre);
+    boolean existsByPassword(String password);
 }
