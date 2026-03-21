@@ -1,0 +1,26 @@
+  body{
+        background: linear-gradient(135deg,#1e3c72,#2a5298);
+        min-height:100vh;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .card-admin{
+        width:420px;
+        border-radius:12px;
+        padding:30px;
+        box-shadow:0px 10px 30px rgba(0,0,0,0.25);
+    }
+
+    .titulo-admin{
+        text-align:center;
+        margin-bottom:25px;
+        font-weight:700;
+    }
+
+    .btn-admin{
+        width:100%;
+        margin-top:10px;
+    }
