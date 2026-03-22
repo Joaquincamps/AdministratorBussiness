@@ -12,7 +12,9 @@ public class DtoCrearTrabajador {
 
     private double salario;
 
-    private LocalDate fechaEntrada;
+    private String horaEntrada;
+
+    private String horaSalida;
 
     private boolean activo;
 
@@ -23,16 +25,25 @@ public class DtoCrearTrabajador {
     public DtoCrearTrabajador() {
     }
 
-    public DtoCrearTrabajador(String nombre, String apellido, String puesto, String email, double salario, LocalDate fechaEntrada, boolean activo, boolean deVacaciones, boolean deLibranza) {
+    public DtoCrearTrabajador(String nombre, String apellido, String puesto, String email, double salario, String horaEntrada, String horaSalida, boolean activo, boolean deVacaciones, boolean deLibranza) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.puesto = puesto;
         this.email = email;
         this.salario = salario;
-        this.fechaEntrada = fechaEntrada;
+        this.horaEntrada = horaEntrada;
+        this.horaSalida = horaSalida;
         this.activo = activo;
         this.deVacaciones = deVacaciones;
         this.deLibranza = deLibranza;
+    }
+
+    public String getHoraEntrada() {
+        return horaEntrada;
+    }
+
+    public String getHoraSalida() {
+        return horaSalida;
     }
 
     public String getNombre() {
@@ -75,13 +86,6 @@ public class DtoCrearTrabajador {
         this.salario = salario;
     }
 
-    public LocalDate getFechaEntrada() {
-        return fechaEntrada;
-    }
-
-    public void setFechaEntrada(LocalDate fechaEntrada) {
-        this.fechaEntrada = fechaEntrada;
-    }
 
     public boolean isDeVacaciones() {
         return deVacaciones;

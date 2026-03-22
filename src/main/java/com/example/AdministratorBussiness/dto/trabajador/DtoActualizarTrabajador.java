@@ -10,18 +10,21 @@ public class DtoActualizarTrabajador {
 
     private double salario;
 
-    private LocalDate fechaSalida;
+    private String horaEntrada;
+
+    private String horaSalida;
 
     private boolean activo, deVacaciones, deLibranza;
 
     public DtoActualizarTrabajador() {
     }
 
-    public DtoActualizarTrabajador(Long id, String puesto, double salario, LocalDate fechaSalida, boolean activo, boolean deVacaciones, boolean deLibranza) {
+    public DtoActualizarTrabajador(Long id, String puesto, double salario, String horaEntrada, String horaSalida, boolean activo, boolean deVacaciones, boolean deLibranza) {
         this.id = id;
         this.puesto = puesto;
         this.salario = salario;
-        this.fechaSalida = fechaSalida;
+        this.horaEntrada = horaEntrada;
+        this.horaSalida = horaSalida;
         this.activo = activo;
         this.deVacaciones = deVacaciones;
         this.deLibranza = deLibranza;
@@ -51,12 +54,20 @@ public class DtoActualizarTrabajador {
         this.salario = salario;
     }
 
-    public LocalDate getFechaSalida() {
-        return fechaSalida;
+    public String getHoraEntrada() {
+        return horaEntrada;
     }
 
-    public void setFechaSalida(LocalDate fechaSalida) {
-        this.fechaSalida = fechaSalida;
+    public void setHoraEntrada(String horaEntrada) {
+        this.horaEntrada = horaEntrada;
+    }
+
+    public String getHoraSalida() {
+        return horaSalida;
+    }
+
+    public void setHoraSalida(String horaSalida) {
+        this.horaSalida = horaSalida;
     }
 
     public boolean isActivo() {

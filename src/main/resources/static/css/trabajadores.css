@@ -1,0 +1,33 @@
+body{
+background:#f5f7fa;
+}
+
+h2{
+font-weight:600;
+}
+
+.card{
+border-radius:10px;
+box-shadow:0 4px 12px rgba(0,0,0,0.08);
+}
+
+.table{
+margin-bottom:0;
+}
+
+.table th{
+text-align:center;
+}
+
+.table td{
+vertical-align:middle;
+text-align:center;
+}
+
+.btn-warning{
+color:white;
+}
+
+.btn-danger{
+margin-left:5px;
+}

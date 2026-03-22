@@ -20,9 +20,9 @@ public class Trabajador {
 
     private double salario;
 
-    private LocalDate fechaEntrada;
+    private String horaEntrada;
 
-    private LocalDate fechaSalida;
+    private String horaSalida;
 
     private boolean activo;
 
@@ -33,15 +33,17 @@ public class Trabajador {
     public Trabajador() {
     }
 
-    public Trabajador(Long id, String nombre, String apellido, String puesto, String email, double salario, LocalDate fechaEntrada, LocalDate fechaSalida, boolean activo, boolean deVacaciones, boolean deLibranza) {
+    public Trabajador(Long id, String nombre, String apellido, String puesto, String email, double salario,
+                      String horaEntrada,
+                      String horaSalida, boolean activo, boolean deVacaciones, boolean deLibranza) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.puesto = puesto;
         this.email = email;
         this.salario = salario;
-        this.fechaEntrada = fechaEntrada;
-        this.fechaSalida = fechaSalida;
+        this.horaEntrada = horaEntrada;
+        this.horaSalida = horaSalida;
         this.activo = activo;
         this.deVacaciones = deVacaciones;
         this.deLibranza = deLibranza;
