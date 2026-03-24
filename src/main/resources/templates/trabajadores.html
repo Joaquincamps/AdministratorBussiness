@@ -11,7 +11,7 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="../static/css/trabajadores.css" />
+    <link rel="stylesheet" href="/css/trabajadores.css" />
   </head>
 
   <body>
@@ -116,9 +116,9 @@
 
                 <td th:text="${trabajador.salario}"></td>
 
-                <td th:text="${trabajador.fechaEntrada}"></td>
+                <td th:text="${trabajador.horaEntrada}"></td>
 
-                <td th:text="${trabajador.fechaSalida}"></td>
+                <td th:text="${trabajador.horaSalida}"></td>
 
                 <td>
                   <span th:if="${trabajador.activo}" class="badge bg-success"

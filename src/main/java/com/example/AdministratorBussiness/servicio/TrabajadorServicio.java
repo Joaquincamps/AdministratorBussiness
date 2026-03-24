@@ -13,6 +13,7 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -41,7 +42,8 @@ public class TrabajadorServicio {
     }
 
     public List<Trabajador> listarTrabajadores() {
-        return trabajadorRepositorio.findAll();
+        List<Trabajador> lista = trabajadorRepositorio.findAll();
+        return lista != null ? lista : new ArrayList<>();
     }
 
     @Transactional

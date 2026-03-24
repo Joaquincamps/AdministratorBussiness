@@ -11,30 +11,42 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class TrabajadorController {
 
     @Autowired
     private TrabajadorServicio trabajadorServicio;
 
-    @PostMapping("/trabajadores")
-    public String agregarTrabajador(@ModelAttribute("trabajador") DtoCrearTrabajador trabajador, Model model) {
-        try {
-            trabajadorServicio.agregarTrabajador(trabajador);
-            model.addAttribute("mensaje", "Trabajador agregado con exito");
-            model.addAttribute("trabajador", new Trabajador());
-        } catch (Exception e) {
-            model.addAttribute("error", e.getMessage());
-            model.addAttribute("trabajador", trabajador);
-        }
-
-        return "trabajadores";
+    @GetMapping("/trabajadores/nuevo")
+    public String crearTrabajador(Model model) {
+        model.addAttribute("trabajador", new DtoCrearTrabajador());
+        return "trabajador-nuevo";
     }
 
+    //agregar un trabajador a mano
+    @PostMapping("/trabajadores/nuevo")
+    public String agregarTrabajador(@ModelAttribute("trabajador") DtoCrearTrabajador trabajador,
+                                    RedirectAttributes redirectAttributes) {
+        try {
+            trabajadorServicio.agregarTrabajador(trabajador);
+            redirectAttributes.addFlashAttribute("mensajeExito", "Trabajador agregado con éxito");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("mensajeError", e.getMessage());
+        }
+        return "redirect:/trabajadores";
+    }
+
+    //mostrar la vista
     @GetMapping("/trabajadores")
     public String listarTrabajadores(Model model) {
-        model.addAttribute("trabajadores", trabajadorServicio.listarTrabajadores());
-        model.addAttribute("trabajador", new Trabajador());
+        List<Trabajador> lista = trabajadorServicio.listarTrabajadores();
+        if (lista == null) {
+            lista = new ArrayList<>();
+        }
+        model.addAttribute("trabajadores", lista);
         return "trabajadores";
     }
 
@@ -59,12 +71,16 @@ public class TrabajadorController {
     }
 
     @PostMapping("/trabajadores/importar")
-    public String importarTrabajadoresPorCsv(@RequestParam("file") MultipartFile ficheroCsv
-    , RedirectAttributes redirectAttributes) {
+    public String importarTrabajadoresPorCsv(@RequestParam("file") MultipartFile ficheroCsv,
+                                             RedirectAttributes redirectAttributes) {
         if (ficheroCsv.isEmpty()) {
-            redirectAttributes.addAttribute("mensaje","El fichero estaá vacío");
+            redirectAttributes.addFlashAttribute("mensaje", "El fichero está vacío");
+            return "redirect:/trabajadores";
         }
         trabajadorServicio.importarTrabajadoresCsv(ficheroCsv);
+
+        // Añadir mensaje de éxito opcional
+        redirectAttributes.addFlashAttribute("mensajeExito", "CSV importado correctamente");
         return "redirect:/trabajadores";
     }
 }
