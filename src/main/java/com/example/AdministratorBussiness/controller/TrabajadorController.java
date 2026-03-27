@@ -50,6 +50,20 @@ public class TrabajadorController {
         return "trabajadores";
     }
 
+    @PostMapping("/trabajadores/importar")
+    public String importarTrabajadoresPorCsv(@RequestParam("file") MultipartFile ficheroCsv,
+                                             RedirectAttributes redirectAttributes) {
+        if (ficheroCsv.isEmpty()) {
+            redirectAttributes.addFlashAttribute("mensaje", "El fichero está vacío");
+            return "redirect:/trabajadores";
+        }
+        trabajadorServicio.importarTrabajadoresCsv(ficheroCsv);
+
+        redirectAttributes.addFlashAttribute("mensajeExito", "CSV importado correctamente");
+        return "redirect:/trabajadores";
+    }
+
+
     @GetMapping("/trabajadores/eliminar/{id}")
     public String eliminarTrabajador(Model model, @PathVariable Long id) {
         try {
@@ -64,23 +78,20 @@ public class TrabajadorController {
         return "trabajadores";
     }
 
-    @PostMapping("/trabajadores/actualizar")
-    public String actualizarValoresTrabajador(DtoActualizarTrabajador updateTrabajador) {
-        trabajadorServicio.actualizarTrabajador(updateTrabajador);
-        return "trabajadores";
+    @GetMapping("/trabajadores/editar/{id}")
+    public String obtenerDatosTrabajador(Model model,@PathVariable Long id) {
+        model.addAttribute("trabajador", trabajadorServicio.obtenerTrabajador(id));
+        return "trabajador-editar";
     }
-
-    @PostMapping("/trabajadores/importar")
-    public String importarTrabajadoresPorCsv(@RequestParam("file") MultipartFile ficheroCsv,
-                                             RedirectAttributes redirectAttributes) {
-        if (ficheroCsv.isEmpty()) {
-            redirectAttributes.addFlashAttribute("mensaje", "El fichero está vacío");
-            return "redirect:/trabajadores";
+    @PostMapping("/trabajadores/actualizar/{id}")
+    public String actualizarValoresTrabajador(@ModelAttribute("trabajador") DtoActualizarTrabajador updateTrabajador
+    , @PathVariable Long id, RedirectAttributes redirectAttributes ) {
+        try {
+            trabajadorServicio.actualizarTrabajador(updateTrabajador,id);
+            redirectAttributes.addFlashAttribute("mensajeExito", "Trabajador editado con éxito");
+        }catch (Exception e){
+            redirectAttributes.addFlashAttribute("mensajeError", e.getMessage());
         }
-        trabajadorServicio.importarTrabajadoresCsv(ficheroCsv);
-
-        // Añadir mensaje de éxito opcional
-        redirectAttributes.addFlashAttribute("mensajeExito", "CSV importado correctamente");
         return "redirect:/trabajadores";
     }
 }

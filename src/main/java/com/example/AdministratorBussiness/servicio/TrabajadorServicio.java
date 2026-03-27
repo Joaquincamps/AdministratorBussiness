@@ -54,8 +54,15 @@ public class TrabajadorServicio {
         trabajadorRepositorio.deleteById(id);
     }
 
-    public void actualizarTrabajador(DtoActualizarTrabajador updateTrabajador) {
-        Trabajador trabajadorBuscar = trabajadorRepositorio.findById(updateTrabajador.getId()).orElseThrow(
+    public Trabajador obtenerTrabajador(Long id) {
+        Trabajador trabajadorBuscar = trabajadorRepositorio.findById(id).orElseThrow(
+                () -> new RuntimeException("No existe el trabajador")
+        );
+        return trabajadorBuscar;
+    }
+
+    public void actualizarTrabajador(DtoActualizarTrabajador updateTrabajador ,Long id) {
+        Trabajador trabajadorBuscar = trabajadorRepositorio.findById(id).orElseThrow(
                 () -> new RuntimeException("No existe el trabajador")
         );
 
