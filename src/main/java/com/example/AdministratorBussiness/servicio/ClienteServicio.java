@@ -6,7 +6,10 @@ import com.example.AdministratorBussiness.modelo.Cliente;
 import com.example.AdministratorBussiness.repositorio.ClienteRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.List;
 
 @Service
@@ -55,6 +58,22 @@ public class ClienteServicio {
         clienteBuscar.setTelefono(dtoActualizarCliente.getTelefono());
         clienteBuscar.setEmail(dtoActualizarCliente.getEmail());
         clienteRepositorio.save(clienteBuscar);
+    }
+
+    public void importarClienteFichero(MultipartFile fichero){
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(fichero.getInputStream()))){
+            String linea;
+            while (( linea = br.readLine()) != null){
+                String [] array = linea.split(";");
+                Cliente cliente = new Cliente();
+                cliente.setNombre(array[0]);
+                cliente.setTelefono(Integer.parseInt(array[1]));
+                cliente.setEmail(array[2]);
+                clienteRepositorio.save(cliente);
+            }
+        }catch (Exception e){
+
+        }
     }
 
 }

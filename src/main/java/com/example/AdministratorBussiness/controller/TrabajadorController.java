@@ -63,7 +63,6 @@ public class TrabajadorController {
         return "redirect:/trabajadores";
     }
 
-
     @GetMapping("/trabajadores/eliminar/{id}")
     public String eliminarTrabajador(Model model, @PathVariable Long id) {
         try {
