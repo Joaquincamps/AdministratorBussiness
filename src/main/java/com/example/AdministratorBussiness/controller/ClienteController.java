@@ -15,57 +15,63 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class ClienteController{
+public class ClienteController {
 
     @Autowired
     private ClienteServicio clienteServicio;
 
     @PostMapping("/clientes")
-    public String agregarCliente(@ModelAttribute DtoCrearCliente DtoCrearCliente, Model model){
-        try{
+    public String agregarCliente(@ModelAttribute DtoCrearCliente DtoCrearCliente, Model model) {
+        try {
             clienteServicio.crearCliente(DtoCrearCliente);
-            model.addAttribute("mensaje","Cliente agregado con éxito");
-            model.addAttribute("cliente",new Cliente());
-        }catch(Exception e){
+            model.addAttribute("mensaje", "Cliente agregado con éxito");
+            model.addAttribute("cliente", new Cliente());
+        } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
-            model.addAttribute("cliente",DtoCrearCliente);
+            model.addAttribute("cliente", DtoCrearCliente);
         }
 
         return "clientes";
     }
 
     @GetMapping("/clientes")
-    public String listarClientes(Model model){
+    public String listarClientes(Model model) {
         List<Cliente> lista = clienteServicio.listarClientes();
         if (lista == null) {
             lista = new ArrayList<>();
         }
-        model.addAttribute("clientes",lista);
+        model.addAttribute("clientes", lista);
         return "clientes";
     }
 
+    @GetMapping("/clientes/nuevo")
+    public String mostrarClientes(Model model) {
+        model.addAttribute("cliente", new DtoCrearCliente());
+        return "crear-cliente";
+    }
+
     @PostMapping("/clientes/importar")
-    public String importarClientesCsv(@RequestParam("file")MultipartFile fichero,
-                                      RedirectAttributes redirectAttributes){
-        if(fichero.isEmpty()){
-            redirectAttributes.addAttribute("mensaje","EL fichero está vacío");
+    public String importarClientesCsv(@RequestParam("file") MultipartFile fichero,
+                                      RedirectAttributes redirectAttributes) {
+        if (fichero.isEmpty()) {
+            redirectAttributes.addAttribute("mensaje", "EL fichero está vacío");
         }
         clienteServicio.importarClienteFichero(fichero);
-        redirectAttributes.addAttribute("mensjae","Fichero agregado con éxito");
+        redirectAttributes.addAttribute("mensjae", "Fichero agregado con éxito");
         return "redirect:/clientes";
     }
 
     @GetMapping("/clientes/eliminar/{id}")
-    public String eliminarCliente(Model model, @PathVariable Long id){
+    public String eliminarCliente(Model model, @PathVariable Long id) {
         clienteServicio.eliminarClientePorId(id);
-        model.addAttribute("clientes",model);
+        model.addAttribute("clientes", model);
         return "clientes";
     }
 
     @PostMapping("/clientes/actualizar")
-    public String actualizarCliente(DtoActualizarCliente updateCliente){
+    public String actualizarCliente(DtoActualizarCliente updateCliente) {
         clienteServicio.actuCliente(updateCliente);
         return "clientes";
-    }   
+    }
 
 }
