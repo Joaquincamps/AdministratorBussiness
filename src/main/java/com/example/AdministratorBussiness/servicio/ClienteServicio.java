@@ -19,7 +19,7 @@ public class ClienteServicio {
     private ClienteRepositorio clienteRepositorio;
 
     public void crearCliente(DtoCrearCliente createCliente) {
-        if (clienteRepositorio.findByEmail(createCliente.getEmail())) {
+        if (clienteRepositorio.existsByEmail(createCliente.getEmail())) {
             throw new RuntimeException(("El cliente ya existe"));
         } else {
             Cliente cliente = new Cliente();
@@ -41,7 +41,7 @@ public class ClienteServicio {
     }
 
     public void buscarClientePorTelefono(int telefono) {
-        Cliente clienteBuscar = clienteRepositorio.findByTelefono(telefono);
+        Cliente clienteBuscar = clienteRepositorio.existsByTelefono(telefono);
     }
 
     public void eliminarClientePorId(Long id) {

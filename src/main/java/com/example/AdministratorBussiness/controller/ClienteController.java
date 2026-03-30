@@ -50,6 +50,18 @@ public class ClienteController {
         return "crear-cliente";
     }
 
+    @PostMapping("/clientes/nuevo")
+    public String crearCliente(@ModelAttribute("cliente") DtoCrearCliente crearCliente,
+                               RedirectAttributes redirectAttributes) {
+        try {
+            clienteServicio.crearCliente(crearCliente);
+            redirectAttributes.addFlashAttribute("mensaje", "Cliente insertado con éxito");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("Error", "No se puedo insetar el cliente");
+        }
+        return "redirect:/clientes";
+    }
+
     @PostMapping("/clientes/importar")
     public String importarClientesCsv(@RequestParam("file") MultipartFile fichero,
                                       RedirectAttributes redirectAttributes) {
@@ -63,8 +75,14 @@ public class ClienteController {
 
     @GetMapping("/clientes/eliminar/{id}")
     public String eliminarCliente(Model model, @PathVariable Long id) {
-        clienteServicio.eliminarClientePorId(id);
-        model.addAttribute("clientes", model);
+        try {
+            clienteServicio.eliminarClientePorId(id);
+            model.addAttribute("mensaje", "Trabajador agregado con éxito");
+        } catch (Exception e) {
+            model.addAttribute("Error", "Trabajador no eliminado");
+        }
+        model.addAttribute("clientes", clienteServicio.listarClientes());
+        model.addAttribute("cliente", new Cliente());
         return "clientes";
     }
 
