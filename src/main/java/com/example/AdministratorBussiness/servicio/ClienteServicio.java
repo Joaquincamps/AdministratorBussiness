@@ -1,9 +1,12 @@
 package com.example.AdministratorBussiness.servicio;
 
+import com.example.AdministratorBussiness.configuration.SipApiProperties;
 import com.example.AdministratorBussiness.dto.cliente.DtoActualizarCliente;
 import com.example.AdministratorBussiness.dto.cliente.DtoCrearCliente;
 import com.example.AdministratorBussiness.modelo.Cliente;
 import com.example.AdministratorBussiness.repositorio.ClienteRepositorio;
+import kong.unirest.HttpResponse;
+import kong.unirest.Unirest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,6 +25,12 @@ import java.math.BigDecimal;
 
 @Service
 public class ClienteServicio {
+
+    private SipApiProperties properties;
+
+    public ClienteServicio(SipApiProperties properties) {
+        this.properties = properties;
+    }
 
     @Autowired
     private ClienteRepositorio clienteRepositorio;
@@ -97,5 +106,17 @@ public class ClienteServicio {
                 mensajeEnviar
         ).create();
         System.out.println(message.getBody());
+    }
+
+    public String realizarLlamadaACliente(String numDestino) {
+        HttpResponse<String> response = Unirest.post(
+                        properties.getBaseUrl() + "/v1/llamar")
+                .header("key", properties.getToken())
+                .header("Content-Type", "application/x-www-form-urlencoded")
+                .field("iduser", properties.getUser())
+                .field("dst", numDestino)
+                .asString();
+
+        return response.getBody();
     }
 }

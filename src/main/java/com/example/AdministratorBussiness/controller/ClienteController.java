@@ -108,4 +108,20 @@ public class ClienteController {
         return "redirect:/clientes";
     }
 
+    @PostMapping("/clientes/llamar/{id}")
+    public String realizarLlamada(RedirectAttributes redirectAttributes,
+                                  @PathVariable Long id) {
+        Cliente clienteBuscar = clienteServicio.buscarClientePorId(id);
+        int numeroTelefono = clienteBuscar.getTelefono();
+        String numeroString = String.valueOf(numeroTelefono);
+        clienteServicio.realizarLlamadaACliente(numeroString);
+        redirectAttributes.addAttribute("mensaje", "llamada realizada con éxito");
+        return "redirect:/clientes";
+    }
+
+    @GetMapping("/clientes/llamar/{id}")
+    public String obtenerVistaLlamar() {
+        return "clientes";
+    }
+
 }

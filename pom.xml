@@ -98,6 +98,13 @@
 			<version>11.3.5</version>
 			<scope>compile</scope>
 		</dependency>
+		<!-- Source: https://mvnrepository.com/artifact/com.konghq/unirest-java -->
+		<dependency>
+			<groupId>com.konghq</groupId>
+			<artifactId>unirest-java</artifactId>
+			<version>3.14.5</version>
+			<scope>compile</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
