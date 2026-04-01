@@ -92,4 +92,20 @@ public class ClienteController {
         return "clientes";
     }
 
+    @GetMapping("/clientes/enviar/mensaje/{id}")
+    public String verFormularioEnviarMensaje(Model model, @PathVariable Long id) {
+        Cliente clienteBuscar = clienteServicio.buscarClientePorId(id);
+        model.addAttribute("cliente", clienteBuscar);
+        return "enviar-mensaje";
+    }
+
+    @PostMapping("/clientes/enviar/mensaje")
+    public String enviarMensajeAlCliente(@RequestParam String mensaje,
+                                         @RequestParam String telefono,
+                                         RedirectAttributes redirectAttributes) {
+        clienteServicio.enviarMensajeAlCliente(telefono, mensaje);
+        redirectAttributes.addAttribute("mensaje", "Whatsapp enviado con éxito");
+        return "redirect:/clientes";
+    }
+
 }

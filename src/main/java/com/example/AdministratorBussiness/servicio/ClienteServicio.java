@@ -12,11 +12,22 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.List;
 
+import com.twilio.Twilio;
+import com.twilio.converter.Promoter;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
+
+import java.net.URI;
+import java.math.BigDecimal;
+
 @Service
 public class ClienteServicio {
 
     @Autowired
     private ClienteRepositorio clienteRepositorio;
+
+    public static final String ACCOUNT_SID = System.getenv("TWILIO_ACCOUNT_SID");
+    public static final String AUTH_TOKEN = System.getenv("TWILIO_AUTH_TOKEN");
 
     public void crearCliente(DtoCrearCliente createCliente) {
         if (clienteRepositorio.existsByEmail(createCliente.getEmail())) {
@@ -34,10 +45,11 @@ public class ClienteServicio {
         return clienteRepositorio.findAll();
     }
 
-    public void buscarClientePorId(Long id) {
+    public Cliente buscarClientePorId(Long id) {
         Cliente clienteBuscar = clienteRepositorio.findById(id).orElseThrow(
                 () -> new RuntimeException("Cliente no encontrado")
         );
+        return clienteBuscar;
     }
 
     public void buscarClientePorTelefono(int telefono) {
@@ -60,20 +72,30 @@ public class ClienteServicio {
         clienteRepositorio.save(clienteBuscar);
     }
 
-    public void importarClienteFichero(MultipartFile fichero){
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(fichero.getInputStream()))){
+    public void importarClienteFichero(MultipartFile fichero) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(fichero.getInputStream()))) {
             String linea;
-            while (( linea = br.readLine()) != null){
-                String [] array = linea.split(";");
+            while ((linea = br.readLine()) != null) {
+                String[] array = linea.split(";");
                 Cliente cliente = new Cliente();
                 cliente.setNombre(array[0]);
                 cliente.setTelefono(Integer.parseInt(array[1]));
                 cliente.setEmail(array[2]);
                 clienteRepositorio.save(cliente);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
 
+    public void enviarMensajeAlCliente(String numeroCliente, String mensajeEnviar) {
+
+        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+        Message message = Message.creator(
+                new PhoneNumber("whatsapp:+34" + numeroCliente),
+                new PhoneNumber("whatsapp:+14155238886"),
+                mensajeEnviar
+        ).create();
+        System.out.println(message.getBody());
+    }
 }

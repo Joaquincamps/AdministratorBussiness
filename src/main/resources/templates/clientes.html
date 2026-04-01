@@ -64,10 +64,7 @@
                         <td>
                             <a th:href="@{/clientes/eliminar/{id}(id=${cliente.id})}" class="btn btn-danger btn-sm">Eliminar</a>
                             <a th:href="@{/clientes/llamar/{id}(id=${cliente.id})}" class="btn btn-info btn-sm">Llamar</a>
-                            <!-- Botón WhatsApp -->
-                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" th:data-bs-target="'#whatsappModal' + ${cliente.id}">
-                                WhatsApp
-                            </button>
+                            <a th:href="@{/clientes/enviar/mensaje/{id}(id=${cliente.id})}" class="btn btn-success btn-sm">💬 WhatsApp</a>
                         </td>
                     </tr>
                 </tbody>
