@@ -8,16 +8,16 @@ public class DtoCrearProveedor {
 
     private int telefono;
 
-    private String emai;
+    private String email;
 
     public DtoCrearProveedor() {
     }
 
-    public DtoCrearProveedor(String nombre, String contacto, int telefono, String emai) {
+    public DtoCrearProveedor(String nombre, String contacto, int telefono, String email) {
         this.nombre = nombre;
         this.contacto = contacto;
         this.telefono = telefono;
-        this.emai = emai;
+        this.email = email;
     }
 
     public String getNombre() {
@@ -44,11 +44,11 @@ public class DtoCrearProveedor {
         this.telefono = telefono;
     }
 
-    public String getEmai() {
-        return emai;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEmai(String emai) {
-        this.emai = emai;
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

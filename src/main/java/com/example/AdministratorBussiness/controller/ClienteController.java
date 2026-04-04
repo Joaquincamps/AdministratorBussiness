@@ -77,7 +77,7 @@ public class ClienteController {
     public String eliminarCliente(Model model, @PathVariable Long id) {
         try {
             clienteServicio.eliminarClientePorId(id);
-            model.addAttribute("mensaje", "Trabajador agregado con éxito");
+            model.addAttribute("mensaje", "Trabajador eliminado con éxito");
         } catch (Exception e) {
             model.addAttribute("Error", "Trabajador no eliminado");
         }

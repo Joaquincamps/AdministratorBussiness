@@ -17,11 +17,13 @@ public class Proveedor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nombre;
+    private String nombreEmpresa;
 
-    private String contacto;
+    private String personaContacto;
 
     private int telefono;
+
+    private boolean activo;
 
     @Column(unique = true)
     private String email;
@@ -40,12 +42,11 @@ public class Proveedor {
         producto.setProveedor(null);
     }
 
-    public Proveedor(String nombre, String contacto, int telefono, String email) {
-        this.nombre = nombre;
-        this.contacto = contacto;
+    public Proveedor(String nombreEmpresa, String personaContacto, int telefono, boolean activo, String email) {
+        this.nombreEmpresa = nombreEmpresa;
+        this.personaContacto = personaContacto;
         this.telefono = telefono;
+        this.activo = activo;
         this.email = email;
-        this.productos = new ArrayList<>();
     }
-
 }
