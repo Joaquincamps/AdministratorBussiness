@@ -93,7 +93,13 @@ public class ProveedorController {
     @PostMapping("/proveedores/editar/{id}")
     public String editarProovedor(RedirectAttributes redirectAttributes,
                                   @PathVariable Long id,
-                                  @ModelAttribute("proveedor")DtoActuProveedor) {
-
+                                  @ModelAttribute("proveedor") DtoActuProveedor dtoActuProveedor) {
+        try {
+            proveedorServicio.actualizarProveedor(dtoActuProveedor, id);
+            redirectAttributes.addFlashAttribute("mensaje", "Proveedor actualizado con éxito");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("mensaje", "No se pudo actualizar el proveedor");
+        }
+        return "proveedores";
     }
 }
