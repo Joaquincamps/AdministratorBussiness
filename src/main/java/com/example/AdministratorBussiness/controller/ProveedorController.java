@@ -1,5 +1,6 @@
 package com.example.AdministratorBussiness.controller;
 
+import com.example.AdministratorBussiness.dto.email.EmailDto;
 import com.example.AdministratorBussiness.dto.proveedor.DtoActuProveedor;
 import com.example.AdministratorBussiness.dto.proveedor.DtoCrearProveedor;
 import com.example.AdministratorBussiness.modelo.Cliente;
@@ -101,5 +102,12 @@ public class ProveedorController {
             redirectAttributes.addFlashAttribute("mensaje", "No se pudo actualizar el proveedor");
         }
         return "proveedores";
+    }
+
+    @GetMapping("/proveedores/email/{id}")
+    public String verVistaEnviarMail(Model model, @PathVariable Long id) {
+        model.addAttribute("proveedor", proveedorServicio.buscarPorId(id));
+        model.addAttribute("correo", new EmailDto());
+        return "email.html";
     }
 }
