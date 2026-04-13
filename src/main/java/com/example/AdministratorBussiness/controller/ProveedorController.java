@@ -5,7 +5,9 @@ import com.example.AdministratorBussiness.dto.proveedor.DtoActuProveedor;
 import com.example.AdministratorBussiness.dto.proveedor.DtoCrearProveedor;
 import com.example.AdministratorBussiness.modelo.Cliente;
 import com.example.AdministratorBussiness.modelo.Proveedor;
+import com.example.AdministratorBussiness.servicio.EmailServicio;
 import com.example.AdministratorBussiness.servicio.ProveedorServicio;
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +23,9 @@ public class ProveedorController {
 
     @Autowired
     private ProveedorServicio proveedorServicio;
+
+    @Autowired
+    private EmailServicio emailServicio;
 
     @GetMapping("/proveedores/nuevo")
     public String crearProveedor(Model model) {
@@ -106,8 +111,20 @@ public class ProveedorController {
 
     @GetMapping("/proveedores/email/{id}")
     public String verVistaEnviarMail(Model model, @PathVariable Long id) {
-        model.addAttribute("proveedor", proveedorServicio.buscarPorId(id));
-        model.addAttribute("correo", new EmailDto());
+        Proveedor proveedor = proveedorServicio.buscarPorId(id);
+
+        EmailDto emailDto = new EmailDto();
+        emailDto.setDestinatario(proveedor.getEmail());
+        model.addAttribute("correo", emailDto);
+        model.addAttribute("proveedor", proveedor);
         return "email.html";
+    }
+
+    @PostMapping("/proveedores/send-email")
+    public String enviarCorreoAlProveedor(RedirectAttributes redirectAttributes,
+                                          @ModelAttribute("correo") EmailDto emailDto) throws MessagingException {
+        emailServicio.enviarCorreo(emailDto);
+        redirectAttributes.addFlashAttribute("mensaje", "Correo enviado");
+        return "redirect:/proveedores";
     }
 }

@@ -33,11 +33,11 @@ public class EmailServicio implements EmailRepository {
 
             Context context = new Context();
             context.setVariable("mensaje", emailDto.getMensaje());
-            String contenidoHtml = templateEngine.process("email", context);
+            String contenidoHtml = templateEngine.process("email-template", context);
             helper.setText(contenidoHtml, true);
             javaMailSender.send(message);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException("Error enviando correo", e);
         }
 
     }
