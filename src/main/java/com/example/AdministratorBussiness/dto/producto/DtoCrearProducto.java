@@ -8,13 +8,16 @@ public class DtoCrearProducto {
 
     private double precio;
 
+    private Long idProveedor;
+
     public DtoCrearProducto() {
     }
 
-    public DtoCrearProducto(String nombre, int stock, double precio) {
+    public DtoCrearProducto(String nombre, int stock, double precio, Long idProveedor) {
         this.nombre = nombre;
         this.stock = stock;
         this.precio = precio;
+        this.idProveedor = idProveedor;
     }
 
     public String getNombre() {
@@ -39,5 +42,13 @@ public class DtoCrearProducto {
 
     public void setPrecio(double precio) {
         this.precio = precio;
+    }
+
+    public Long getIdProveedor() {
+        return idProveedor;
+    }
+
+    public void setIdProveedor(Long idProveedor) {
+        this.idProveedor = idProveedor;
     }
 }
