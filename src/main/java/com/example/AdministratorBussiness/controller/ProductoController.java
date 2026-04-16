@@ -2,7 +2,9 @@ package com.example.AdministratorBussiness.controller;
 
 import com.example.AdministratorBussiness.dto.producto.DtoCrearProducto;
 import com.example.AdministratorBussiness.modelo.Producto;
+import com.example.AdministratorBussiness.modelo.Proveedor;
 import com.example.AdministratorBussiness.servicio.ProductoServicio;
+import com.example.AdministratorBussiness.servicio.ProveedorServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,15 +22,21 @@ public class ProductoController {
     @Autowired
     private ProductoServicio productoServicio;
 
+    @Autowired
+    private ProveedorServicio proveedorServicio;
 
     @GetMapping("/productos")
     public String verProductos(Model model) {
         List<Producto> lista = productoServicio.listarProductos();
+        List<Proveedor> listaProveedores = proveedorServicio.consultarProveedores();
         if (lista.isEmpty()) {
             lista = new ArrayList<>();
         }
+        Producto producto = new Producto();
+        producto.setProveedor(new Proveedor());
         model.addAttribute("productos", lista);
-        model.addAttribute("producto", new Producto());
+        model.addAttribute("producto", producto);
+        model.addAttribute("proveedores",listaProveedores);
         return "productos";
     }
 

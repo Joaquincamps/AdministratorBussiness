@@ -48,5 +48,6 @@ public class Proveedor {
         this.telefono = telefono;
         this.activo = activo;
         this.email = email;
+        this.productos = new ArrayList<>();
     }
 }
