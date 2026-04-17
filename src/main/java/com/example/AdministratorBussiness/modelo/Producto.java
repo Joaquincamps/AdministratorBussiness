@@ -1,10 +1,7 @@
 package com.example.AdministratorBussiness.modelo;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data
 @Entity
 public class Producto {
 

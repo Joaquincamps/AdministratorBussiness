@@ -25,6 +25,9 @@
         <a th:href="@{/dashboard}" class="btn btn-outline-light btn-sm">
             Volver al Dashboard
         </a>
+        <a th:href="@{/productos/historial/stock}" class="btn btn-info mb-3">
+        <i class="bi bi-clock-history"></i> Ver historial completo
+</a>
     </div>
 </nav>
 
@@ -64,11 +67,11 @@
 
                     <div class="col-md-3">
                         <label class="form-label">Proveedor</label>
-                        <select class="form-select" th:field="*{proveedor.id}" required>
+                        <select class="form-select" name="idProveedor" required>
                         <option value="">-- Selecciona proveedor --</option>
                         <option th:each="prov : ${proveedores}"
                                 th:value="${prov.id}"
-                                th:text="${prov.nombre}">
+                                th:text="${prov.nombreEmpresa}">
                         </option>
                         </select>
                     </div>
@@ -104,6 +107,7 @@
                         <th>Stock</th>
                         <th>Proovedor</th>
                         <th>Estado</th>
+                        <th>Acción</th>
                     </tr>
                 </thead>
 
@@ -119,8 +123,8 @@
 
                         <td th:text="${producto.stock}"></td>
 
-                        <td th:text="${producto.proveedor != null ? producto.proveedor.nombre : 'Sin proveedor'}"></td>
-                        
+                        <td th:text="${producto.proveedor != null ? producto.proveedor.nombreEmpresa : 'Sin proveedor'}"></td>
+  
                         <!-- ALERTA STOCK -->
                         <td>
 
@@ -140,6 +144,39 @@
                             </span>
 
                         </td>
+                        <td class="d-flex gap-2 align-items-center">
+    <form th:action="@{/productos/reducir-stock/{id}(id=${producto.id})}" method="post" class="d-flex gap-2 align-items-center">
+        <input type="hidden" name="idProducto" th:value="${producto.id}">
+        <input type="number"
+               name="cantidad"
+               min="1"
+               class="form-control form-control-sm"
+               style="width: 80px;"
+               placeholder="0"
+               required>
+
+        <button type="submit" class="btn btn-sm btn-warning">
+            Reducir
+        </button>
+
+
+</form>
+                    <form th:action="@{/productos/aumentar-stock/{id}(id=${producto.id})}" method="post" class="d-flex gap-2 align-items-center">
+        <input type="hidden" name="idProducto" th:value="${producto.id}">
+        <input type="number"
+               name="cantidad"
+               min="1"
+               class="form-control form-control-sm"
+               style="width: 80px;"
+               placeholder="0"
+               required>
+
+        <button type="submit" class="btn btn-sm btn-warning">
+            Aumentar
+        </button>
+
+    </form>
+            </td>
 
                     </tr>
 

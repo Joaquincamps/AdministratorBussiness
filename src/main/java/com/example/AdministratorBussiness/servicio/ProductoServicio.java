@@ -2,12 +2,18 @@ package com.example.AdministratorBussiness.servicio;
 
 import com.example.AdministratorBussiness.dto.producto.DtoCrearProducto;
 import com.example.AdministratorBussiness.modelo.Producto;
+import com.example.AdministratorBussiness.modelo.ProductoHistorial;
 import com.example.AdministratorBussiness.modelo.Proveedor;
+import com.example.AdministratorBussiness.opEnum.Operacion;
+import com.example.AdministratorBussiness.repositorio.ProductoHistorialRepository;
 import com.example.AdministratorBussiness.repositorio.ProductoRepositorio;
 import com.example.AdministratorBussiness.repositorio.ProveedorRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +25,15 @@ public class ProductoServicio {
 
     @Autowired
     private ProveedorRepositorio proveedorRepositorio;
+
+    @Autowired
+    private ProductoHistorialRepository productoHistorialRepository;
+
+    private List<ProductoHistorial> listaProductoHistorial = new ArrayList<>();
+
+    public List<ProductoHistorial> getListaProductoHistorial() {
+        return listaProductoHistorial;
+    }
 
     public void registrarProducto(DtoCrearProducto crearProducto) {
         Producto producto = new Producto();
@@ -44,6 +59,42 @@ public class ProductoServicio {
 
     public List<Producto> listarProductos() {
         return productoRepositorio.findAll();
+    }
+
+    public void reducirStock(Long id, int cantidad) {
+        Producto producto = productoRepositorio.findById(id).orElseThrow(
+                () -> new RuntimeException("Producto no encontrado")
+        );
+        int stockActual = producto.getStock() - cantidad;
+        producto.setStock(stockActual);
+        productoRepositorio.save(producto);
+
+        ProductoHistorial productoHistorial = new ProductoHistorial();
+        productoHistorial.setProducto(producto);
+        productoHistorial.setCantidad(cantidad);
+        productoHistorial.setOperacion(Operacion.SALIDA);
+        productoHistorial.setFecha(LocalDateTime.now());
+        productoHistorial.setStockFinal(producto.getStock());
+        productoHistorialRepository.save(productoHistorial);
+        listaProductoHistorial.add(productoHistorial);
+    }
+
+    public void aumentarStock(Long id, int cantidad) {
+        Producto producto = productoRepositorio.findById(id).orElseThrow(
+                () -> new RuntimeException("Producto no encontrado")
+        );
+        int stockActual = producto.getStock() + cantidad;
+        producto.setStock(stockActual);
+        productoRepositorio.save(producto);
+
+        ProductoHistorial productoHistorial = new ProductoHistorial();
+        productoHistorial.setProducto(producto);
+        productoHistorial.setCantidad(cantidad);
+        productoHistorial.setOperacion(Operacion.SALIDA);
+        productoHistorial.setFecha(LocalDateTime.now());
+        productoHistorial.setStockFinal(producto.getStock());
+        productoHistorialRepository.save(productoHistorial);
+        listaProductoHistorial.add(productoHistorial);
     }
 
 }
