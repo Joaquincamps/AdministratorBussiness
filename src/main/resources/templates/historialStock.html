@@ -64,11 +64,11 @@
 
                         <!-- TIPO -->
                         <td>
-                            <span th:if="${mov.tipo == 'SALIDA'}" class="badge bg-danger">
+                            <span th:if="${mov.operacion.name() == 'SALIDA'}" class="badge bg-danger">
                                 Salida
                             </span>
 
-                            <span th:if="${mov.tipo == 'ENTRADA'}" class="badge bg-success">
+                            <span th:if="${mov.operacion.name() == 'ENTRADA'}" class="badge bg-success">
                                 Entrada
                             </span>
                         </td>

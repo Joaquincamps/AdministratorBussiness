@@ -32,7 +32,7 @@ public class ProductoServicio {
     private List<ProductoHistorial> listaProductoHistorial = new ArrayList<>();
 
     public List<ProductoHistorial> getListaProductoHistorial() {
-        return listaProductoHistorial;
+        return productoHistorialRepository.findAll();
     }
 
     public void registrarProducto(DtoCrearProducto crearProducto) {
@@ -76,7 +76,6 @@ public class ProductoServicio {
         productoHistorial.setFecha(LocalDateTime.now());
         productoHistorial.setStockFinal(producto.getStock());
         productoHistorialRepository.save(productoHistorial);
-        listaProductoHistorial.add(productoHistorial);
     }
 
     public void aumentarStock(Long id, int cantidad) {
@@ -90,11 +89,10 @@ public class ProductoServicio {
         ProductoHistorial productoHistorial = new ProductoHistorial();
         productoHistorial.setProducto(producto);
         productoHistorial.setCantidad(cantidad);
-        productoHistorial.setOperacion(Operacion.SALIDA);
+        productoHistorial.setOperacion(Operacion.ENTRADA);
         productoHistorial.setFecha(LocalDateTime.now());
         productoHistorial.setStockFinal(producto.getStock());
         productoHistorialRepository.save(productoHistorial);
-        listaProductoHistorial.add(productoHistorial);
     }
 
 }
