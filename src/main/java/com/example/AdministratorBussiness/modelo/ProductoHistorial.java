@@ -1,11 +1,10 @@
 package com.example.AdministratorBussiness.modelo;
 
-import com.example.AdministratorBussiness.opEnum.Operacion;
+import com.example.AdministratorBussiness.Enums.opEnum.Operacion;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity

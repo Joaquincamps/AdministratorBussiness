@@ -4,18 +4,16 @@ import com.example.AdministratorBussiness.dto.producto.DtoCrearProducto;
 import com.example.AdministratorBussiness.modelo.Producto;
 import com.example.AdministratorBussiness.modelo.ProductoHistorial;
 import com.example.AdministratorBussiness.modelo.Proveedor;
-import com.example.AdministratorBussiness.opEnum.Operacion;
+import com.example.AdministratorBussiness.Enums.opEnum.Operacion;
 import com.example.AdministratorBussiness.repositorio.ProductoHistorialRepository;
 import com.example.AdministratorBussiness.repositorio.ProductoRepositorio;
 import com.example.AdministratorBussiness.repositorio.ProveedorRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProductoServicio {

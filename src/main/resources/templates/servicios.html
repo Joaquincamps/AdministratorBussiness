@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Servicios</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+<nav class="navbar navbar-dark bg-dark px-3">
+    <span class="navbar-brand">Panel Administrador</span>
+
+    <div class="d-flex gap-2">
+        <a th:href="@{/dashboard}" class="btn btn-outline-light btn-sm">
+            Volver al Dashboard
+        </a>
+
+        <!-- 🔥 BOTÓN NUEVO -->
+        <a th:href="@{/servicios/nuevo}" class="btn btn-success btn-sm">
+            ➕ Nuevo Servicio
+        </a>
+    </div>
+</nav>
+
+<div class="container mt-4">
+
+    <div th:if="${mensaje}" class="alert alert-success">
+        <span th:text="${mensaje}"></span>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-header bg-dark text-white">
+            🛠️ Servicios Disponibles
+        </div>
+
+        <div class="card-body">
+
+            <table class="table table-hover table-bordered align-middle">
+
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Servicio</th>
+                        <th>Precio (€)</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr th:each="serv : ${servicios}">
+                        <td th:text="${serv.id}"></td>
+                        <td th:text="${serv.enumServicio}"></td>
+                        <td th:text="${serv.precio}"></td>
+
+                        <td class="d-flex gap-2">
+
+                            <form th:action="@{/servicios/modificar-precio/{id}(id=${serv.id})}"
+                                  method="post"
+                                  class="d-flex gap-2 align-items-center">
+
+                                <input type="number"
+                                       name="precio"
+                                       step="0.01"
+                                       class="form-control form-control-sm"
+                                       style="width: 100px;"
+                                       placeholder="Nuevo €"
+                                       required>
+
+                                <button class="btn btn-sm btn-warning">
+                                    Actualizar
+                                </button>
+
+                            </form>
+
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
