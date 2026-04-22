@@ -17,13 +17,12 @@ public class Servicio {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-        @Enumerated(EnumType.STRING)
-        private EnumServicio enumServicio;
+    private String tipoServicio;
 
     private double precio;
 
-    public Servicio(EnumServicio enumServicio, double precio) {
-        this.enumServicio = enumServicio;
+    public Servicio(String enumServicio, double precio) {
+        this.tipoServicio = tipoServicio;
         this.precio = precio;
     }
 }

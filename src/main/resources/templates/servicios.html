@@ -14,15 +14,18 @@
     <span class="navbar-brand">Panel Administrador</span>
 
     <div class="d-flex gap-2">
-        <a th:href="@{/dashboard}" class="btn btn-outline-light btn-sm">
-            Volver al Dashboard
-        </a>
+    <a th:href="@{/dashboard}" class="btn btn-outline-light btn-sm">
+        Volver al Dashboard
+    </a>
 
-        <!-- 🔥 BOTÓN NUEVO -->
-        <a th:href="@{/servicios/nuevo}" class="btn btn-success btn-sm">
-            ➕ Nuevo Servicio
-        </a>
-    </div>
+    <a th:href="@{/servicios/ver/registrados}" class="btn btn-outline-light btn-sm">
+        Ver Servicios Registrados
+    </a>
+
+    <a th:href="@{/servicios/nuevo}" class="btn btn-success btn-sm">
+        ➕ Crear Servicio
+    </a>
+</div>
 </nav>
 
 <div class="container mt-4">
@@ -53,7 +56,7 @@
 
                     <tr th:each="serv : ${servicios}">
                         <td th:text="${serv.id}"></td>
-                        <td th:text="${serv.enumServicio}"></td>
+                        <td th:text="${serv.tipoServicio}"></td>
                         <td th:text="${serv.precio}"></td>
 
                         <td class="d-flex gap-2">
@@ -75,8 +78,18 @@
                                 </button>
 
                             </form>
+          <form th:action="@{/servicios/registrar/{id}(id=${serv.id})}"
+          method="post"
+          class="d-flex">
 
+        <button type="submit" class="btn btn-sm btn-success">
+            Registrar servicio
+        </button>
+
+    </form>
+              
                         </td>
+                 
                     </tr>
 
                 </tbody>

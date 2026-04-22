@@ -33,18 +33,14 @@
 
                 <div class="row">
 
-                    <!-- ENUM -->
+                    <!-- NOMBRE SERVICIO -->
                     <div class="col-md-6">
-                        <label class="form-label">Tipo de servicio</label>
-                        <select class="form-select" th:field="*{enumServicio}" required>
-                            <option value="">-- Selecciona servicio --</option>
-
-                            <option th:each="tipo : ${T(com.example.AdministratorBussiness.Enums.opServicio.EnumServicio).values()}"
-                                    th:value="${tipo}"
-                                    th:text="${tipo}">
-                            </option>
-
-                        </select>
+                        <label class="form-label">Nombre del servicio</label>
+                        <input type="text"
+                               class="form-control"
+                               th:field="*{nombre}"
+                               placeholder="Ej: Corte de puntas"
+                               required>
                     </div>
 
                     <!-- PRECIO -->
@@ -54,6 +50,7 @@
                                step="0.01"
                                class="form-control"
                                th:field="*{precio}"
+                               placeholder="Ej: 49.99"
                                required>
                     </div>
 

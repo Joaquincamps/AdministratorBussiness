@@ -4,23 +4,23 @@ import com.example.AdministratorBussiness.Enums.opServicio.EnumServicio;
 
 public class DtoServicio {
 
-    private EnumServicio nombre;
+    private String nombre;
 
     private double precio;
 
     public DtoServicio() {
     }
 
-    public DtoServicio(EnumServicio nombre, double precio) {
+    public DtoServicio(String nombre, double precio) {
         this.nombre = nombre;
         this.precio = precio;
     }
 
-    public EnumServicio getNombre() {
+    public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(EnumServicio nombre) {
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
