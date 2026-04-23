@@ -8,6 +8,7 @@ import com.example.AdministratorBussiness.repositorio.ServicioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -49,7 +50,15 @@ public class ServiciosDisponibles {
         RegistrarServicio registrarServicio = new RegistrarServicio();
         registrarServicio.setServicio(servicio);
         registrarServicio.setPrecio(servicio.getPrecio());
-        registrarServicio.setFecha(LocalDateTime.now());
+        registrarServicio.setFecha(LocalDate.now());
         registrarServicioRepository.save(registrarServicio);
+    }
+
+    public List<RegistrarServicio> listarHistorialServicios() {
+        return registrarServicioRepository.findAll();
+    }
+
+    public double calcularTotalDeDiaEspecifico(LocalDate fechaBuscar){
+
     }
 }

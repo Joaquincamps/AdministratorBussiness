@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -21,12 +22,12 @@ public class RegistrarServicio {
 
     private double precio;
 
-    private LocalDateTime fecha;
+    private LocalDate fecha;
 
     public RegistrarServicio() {
     }
 
-    public RegistrarServicio(Servicio servicio, double precio, LocalDateTime fecha) {
+    public RegistrarServicio(Servicio servicio, double precio, LocalDate fecha) {
         this.servicio = servicio;
         this.precio = precio;
         this.fecha = fecha;

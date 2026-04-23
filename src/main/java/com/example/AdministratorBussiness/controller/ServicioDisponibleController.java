@@ -1,6 +1,7 @@
 package com.example.AdministratorBussiness.controller;
 
 import com.example.AdministratorBussiness.dto.servicio.DtoServicio;
+import com.example.AdministratorBussiness.modelo.RegistrarServicio;
 import com.example.AdministratorBussiness.modelo.Servicio;
 import com.example.AdministratorBussiness.servicio.ServiciosDisponibles;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,5 +73,21 @@ public class ServicioDisponibleController {
             redirectAttributes.addFlashAttribute("mensaje", "No se pudo registrar el servicio");
         }
         return "redirect:/servicios";
+    }
+
+    @GetMapping("/servicios/ver/registrados")
+    public String verServiciosRegistrados(Model model) {
+        List<RegistrarServicio> lista = serviciosDisponibles.listarHistorialServicios();
+        if (lista.isEmpty()) {
+            lista = new ArrayList<>();
+        }
+        model.addAttribute("registros", lista);
+        return "historial-servicios";
+    }
+
+    @GetMapping("/servicios/historial/total")
+    public double calcularTotalPorDiaEspecifico(@PathVariable LocalDate fechaEspecifica,
+                                                Model model){
+
     }
 }
