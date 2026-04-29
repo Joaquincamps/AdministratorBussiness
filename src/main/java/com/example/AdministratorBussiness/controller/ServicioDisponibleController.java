@@ -5,12 +5,10 @@ import com.example.AdministratorBussiness.modelo.RegistrarServicio;
 import com.example.AdministratorBussiness.modelo.Servicio;
 import com.example.AdministratorBussiness.servicio.ServiciosDisponibles;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
@@ -86,8 +84,21 @@ public class ServicioDisponibleController {
     }
 
     @GetMapping("/servicios/historial/total")
-    public double calcularTotalPorDiaEspecifico(@PathVariable LocalDate fechaEspecifica,
-                                                Model model){
+    public String calcularTotalPorDiaEspecifico(@RequestParam LocalDate fecha,
+                                                Model model) {
+        double valorPorFecha = serviciosDisponibles.calcularTotalDeDiaEspecifico(fecha);
+        model.addAttribute("total", valorPorFecha);
+        return "historial-servicios";
+    }
 
+    @GetMapping("/servicios/historial/filtrar")
+    public String listarServiciosPorDia(@RequestParam LocalDate fecha,
+                                        Model model) {
+        List<RegistrarServicio> lista = serviciosDisponibles.listarServicioPorDia(fecha);
+        if (lista.isEmpty()) {
+            lista = new ArrayList<>();
+        }
+        model.addAttribute("registros", lista);
+        return "servicios";
     }
 }

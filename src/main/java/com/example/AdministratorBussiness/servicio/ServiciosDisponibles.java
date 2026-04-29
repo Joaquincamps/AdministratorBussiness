@@ -58,7 +58,11 @@ public class ServiciosDisponibles {
         return registrarServicioRepository.findAll();
     }
 
-    public double calcularTotalDeDiaEspecifico(LocalDate fechaBuscar){
+    public double calcularTotalDeDiaEspecifico(LocalDate fecha) {
+        return servicioRepository.calcularTotalPorDiaEspecifico(fecha);
+    }
 
+    public List<RegistrarServicio> listarServicioPorDia(LocalDate fecha){
+        return servicioRepository.listarServiciosPorDia(fecha);
     }
 }
