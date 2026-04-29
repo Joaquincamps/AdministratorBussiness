@@ -99,6 +99,7 @@ public class ServicioDisponibleController {
             lista = new ArrayList<>();
         }
         model.addAttribute("registros", lista);
-        return "servicios";
+        return "historial-servicios";
     }
+
 }
