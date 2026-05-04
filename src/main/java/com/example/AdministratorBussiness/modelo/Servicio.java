@@ -21,7 +21,7 @@ public class Servicio {
 
     private double precio;
 
-    public Servicio(String enumServicio, double precio) {
+    public Servicio(String tipoServicio, double precio) {
         this.tipoServicio = tipoServicio;
         this.precio = precio;
     }

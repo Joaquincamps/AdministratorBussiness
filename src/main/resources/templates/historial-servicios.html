@@ -70,6 +70,31 @@
                    placeholder="0 €"
                    readonly>
         </div>
+        <div class="col-md-3">
+                <form th:action="@{/servicios/servicio/total}" method="get">
+
+                    <label class="form-label">Servicio</label>
+
+                    <select class="form-select" name="idServicio" required>
+                        <option value="">-- Servicio --</option>
+
+                        <option th:each="serv : ${servicios}"
+                                th:value="${serv.id}"
+                                th:text="${serv.tipoServicio}">
+                        </option>
+                    </select>
+
+                    <button class="btn btn-primary w-100 mt-2">
+                        Calcular servicio
+                    </button>
+                     <input type="text"
+               class="form-control mt-2"
+               th:value="${total}"
+               placeholder="0.00 €"
+               readonly>
+
+                </form>
+            </div>
 
     </div>
 

@@ -28,6 +28,10 @@ public class ServiciosDisponibles {
         return servicioRepository.findAll();
     }
 
+    public double calcularPrecioPorServicio(Long id) {
+        return servicioRepository.calcularTotalPorServicio(id);
+    }
+
     public void insertarServicio(DtoServicio dtoServicio) {
         Servicio servicio = new Servicio();
         servicio.setTipoServicio(dtoServicio.getNombre());
@@ -62,7 +66,7 @@ public class ServiciosDisponibles {
         return servicioRepository.calcularTotalPorDiaEspecifico(fecha);
     }
 
-    public List<RegistrarServicio> listarServicioPorDia(LocalDate fecha){
+    public List<RegistrarServicio> listarServicioPorDia(LocalDate fecha) {
         return servicioRepository.listarServiciosPorDia(fecha);
     }
 }

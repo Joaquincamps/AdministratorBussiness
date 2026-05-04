@@ -22,4 +22,6 @@ public interface ServicioRepository extends JpaRepository<Servicio, Long> {
     @Query("SELECT r FROM RegistrarServicio r WHERE DATE(r.fecha) =:fecha")
     List<RegistrarServicio> listarServiciosPorDia(@Param("fecha") LocalDate fecha);
 
+    @Query("SELECT SUM(r.precio) FROM RegistrarServicio r WHERE r.servicio.id =:servicio")
+    Double calcularTotalPorServicio(@Param("servicio") Long servicio);
 }

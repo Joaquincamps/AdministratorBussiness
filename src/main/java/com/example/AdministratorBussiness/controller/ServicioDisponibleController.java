@@ -76,29 +76,47 @@ public class ServicioDisponibleController {
     @GetMapping("/servicios/ver/registrados")
     public String verServiciosRegistrados(Model model) {
         List<RegistrarServicio> lista = serviciosDisponibles.listarHistorialServicios();
+        List<Servicio> servicios = serviciosDisponibles.listarServicios();
         if (lista.isEmpty()) {
             lista = new ArrayList<>();
         }
         model.addAttribute("registros", lista);
+        model.addAttribute("servicios", servicios);
         return "historial-servicios";
     }
 
     @GetMapping("/servicios/historial/total")
     public String calcularTotalPorDiaEspecifico(@RequestParam LocalDate fecha,
                                                 Model model) {
+
         double valorPorFecha = serviciosDisponibles.calcularTotalDeDiaEspecifico(fecha);
+        List<Servicio> servicios = serviciosDisponibles.listarServicios();
+
         model.addAttribute("total", valorPorFecha);
+        model.addAttribute("servicios", servicios);
+
         return "historial-servicios";
     }
 
     @GetMapping("/servicios/historial/filtrar")
     public String listarServiciosPorDia(@RequestParam LocalDate fecha,
                                         Model model) {
+
         List<RegistrarServicio> lista = serviciosDisponibles.listarServicioPorDia(fecha);
-        if (lista.isEmpty()) {
-            lista = new ArrayList<>();
-        }
+        List<Servicio> servicios = serviciosDisponibles.listarServicios();
+
         model.addAttribute("registros", lista);
+        model.addAttribute("servicios", servicios);
+
+        return "historial-servicios";
+    }
+
+    @GetMapping("/servicios/servicio/total")
+    public String calcularPrecioPorServicio(@RequestParam Long idServicio, Model model) {
+        Double total = serviciosDisponibles.calcularPrecioPorServicio(idServicio);
+
+        model.addAttribute("total", total);
+        model.addAttribute("servicios", serviciosDisponibles.listarServicios());
         return "historial-servicios";
     }
 
