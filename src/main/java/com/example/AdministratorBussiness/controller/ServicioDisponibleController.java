@@ -120,4 +120,14 @@ public class ServicioDisponibleController {
         return "historial-servicios";
     }
 
+    @GetMapping("/servicios/servicio/total/rango/fechas")
+    public String calcularTotalPorRangoFechas(@RequestParam LocalDate fecha1,
+                                              @RequestParam LocalDate fecha2,
+                                              Model model) {
+        Double calcularTotal = serviciosDisponibles.calcularPrecioPorRangoFechas(fecha1, fecha2);
+        model.addAttribute("totalRango", calcularTotal);
+        model.addAttribute("servicios", serviciosDisponibles.listarServicios());
+        return "historial-servicios";
+    }
+
 }

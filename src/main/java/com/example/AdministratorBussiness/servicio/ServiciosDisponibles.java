@@ -69,4 +69,8 @@ public class ServiciosDisponibles {
     public List<RegistrarServicio> listarServicioPorDia(LocalDate fecha) {
         return servicioRepository.listarServiciosPorDia(fecha);
     }
+
+    public double calcularPrecioPorRangoFechas(LocalDate fecha1, LocalDate fecha2) {
+        return servicioRepository.calcularPrecioPorRangoFechas(fecha1, fecha2);
+    }
 }
