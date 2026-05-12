@@ -22,6 +22,20 @@ public class Cliente {
     @Column(unique = true)
     private String email;
 
+    @OneToMany(mappedBy = "reserva")
+    private List<Reserva> reservas;
+
+    //metodos helpers
+    public void agregarReserva(Reserva reserva) {
+        reservas.add(reserva);
+        reserva.setCliente(this);
+    }
+
+    public void eliminarReserva(Reserva reserva) {
+        reservas.remove(reserva);
+        reserva.setCliente(null);
+    }
+
     @OneToMany(mappedBy = "cliente")
     private List<Cita> citas;
 
@@ -44,6 +58,7 @@ public class Cliente {
         this.telefono = telefono;
         this.email = email;
         this.citas = new ArrayList<>();
+        this.reservas = new ArrayList<>();
     }
 
 

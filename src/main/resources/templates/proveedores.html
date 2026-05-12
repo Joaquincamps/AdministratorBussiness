@@ -89,7 +89,6 @@
                         <th>Contacto</th>
                         <th>Teléfono</th>
                         <th>Email</th>
-                        <th>Estado</th>
                         <th class="text-center">Acciones</th>
                     </tr>
                 </thead>
@@ -108,16 +107,6 @@
 
                         <td th:text="${proveedor.email}"></td>
 
-                        <!-- ESTADO -->
-                        <td>
-                            <span th:if="${proveedor.activo}" class="badge bg-success">
-                                🟢 Activo
-                            </span>
-
-                            <span th:unless="${proveedor.activo}" class="badge bg-danger">
-                                🔴 Inactivo
-                            </span>
-                        </td>
 
                         <!-- ACCIONES -->
                         <td class="text-center">
