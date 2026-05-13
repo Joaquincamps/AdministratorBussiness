@@ -34,4 +34,12 @@ public class ReservaServicio {
     public List<Reserva> listarReservas() {
         return reservaRepository.findAll();
     }
+
+    public void eliminarReserva(Long id) {
+        reservaRepository.deleteById(id);
+    }
+
+    public List<Reserva> listarReservasPorTrabajador(Long id) {
+        return reservaRepository.listarReservasPorTrabajador(id);
+    }
 }

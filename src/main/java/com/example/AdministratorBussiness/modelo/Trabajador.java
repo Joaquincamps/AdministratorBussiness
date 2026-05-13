@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -13,7 +15,7 @@ public class Trabajador {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nombre,apellido,puesto;
+    private String nombre, apellido, puesto;
 
     @Column(unique = true)
     private String email;
@@ -29,6 +31,9 @@ public class Trabajador {
     private boolean deVacaciones;
 
     private boolean deLibranza;
+
+    @OneToMany(mappedBy = "trabajador")
+    private List<Reserva> reservas;
 
     public Trabajador() {
     }
@@ -47,5 +52,6 @@ public class Trabajador {
         this.activo = activo;
         this.deVacaciones = deVacaciones;
         this.deLibranza = deLibranza;
+        this.reservas = new ArrayList<>();
     }
 }

@@ -1,5 +1,6 @@
 package com.example.AdministratorBussiness.modelo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -18,7 +19,13 @@ public class Reserva {
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
+    @JsonIgnoreProperties("reservas")
     private Cliente cliente;
+
+    @ManyToOne
+    @JoinColumn(name = "trabajador_id")
+    @JsonIgnoreProperties("reservas")
+    private Trabajador trabajador;
 
     public Reserva() {
     }
@@ -27,6 +34,14 @@ public class Reserva {
         this.fecha = fecha;
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
+    }
+
+    public Trabajador getTrabajador() {
+        return trabajador;
+    }
+
+    public void setTrabajador(Trabajador trabajador) {
+        this.trabajador = trabajador;
     }
 
     public Long getId() {

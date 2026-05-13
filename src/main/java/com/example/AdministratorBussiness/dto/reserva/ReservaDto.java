@@ -9,16 +9,19 @@ public class ReservaDto {
 
     private LocalTime horaInicio, horaFin;
 
-    private Long idCliente;
+    private Long clienteId;
+
+    private Long trabajadorId;
 
     public ReservaDto() {
     }
 
-    public ReservaDto(LocalDate fecha, LocalTime horaInicio, LocalTime horaFin, Long idCliente) {
+    public ReservaDto(LocalDate fecha, LocalTime horaInicio, LocalTime horaFin, Long clienteId, Long trabajadorId) {
         this.fecha = fecha;
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
-        this.idCliente = idCliente;
+        this.clienteId = clienteId;
+        this.trabajadorId = trabajadorId;
     }
 
     public LocalDate getFecha() {
@@ -46,10 +49,26 @@ public class ReservaDto {
     }
 
     public Long getIdCliente() {
-        return idCliente;
+        return clienteId;
     }
 
     public void setIdCliente(Long idCliente) {
-        this.idCliente = idCliente;
+        this.clienteId = idCliente;
+    }
+
+    public Long getClienteId() {
+        return clienteId;
+    }
+
+    public void setClienteId(Long clienteId) {
+        this.clienteId = clienteId;
+    }
+
+    public Long getTrabajadorId() {
+        return trabajadorId;
+    }
+
+    public void setTrabajadorId(Long trabajadorId) {
+        this.trabajadorId = trabajadorId;
     }
 }
