@@ -22,7 +22,7 @@ public class Cliente {
     @Column(unique = true)
     private String email;
 
-    @OneToMany(mappedBy = "reserva")
+    @OneToMany(mappedBy = "cliente")
     private List<Reserva> reservas;
 
     //metodos helpers
