@@ -30,6 +30,14 @@ async function listarReservas() {
                             </div>
                         </div>
                     </td>
+                     <td>
+                        <div class="client-info">
+                            <div class="client-avatar"><i class="bi bi-person"></i></div>
+                            <div>
+                                <div class="fw-bold">${reserva.trabajador ? reserva.trabajador.nombre : 'Trabajador no encontrado'}</div>
+                            </div>
+                        </div>
+                    </td>
                     <td class="text-end">
                         <button class="btn btn-outline-danger btn-sm rounded-pill" onclick="eliminar(${reserva.id})">
                             <i class="bi bi-trash"></i> Cancelar
@@ -49,7 +57,7 @@ async function listarReservas() {
 
 async function listarReservaPorTrabajador(idTrabajador) {
     try {
-        const response = await fetch(URL_BASE + `listar/trabajador/${idTrabajador}`, {
+        const response = await fetch(URL_BASE + `listar/reservas/trabajador/${idTrabajador}`, {
             "method": "GET",
             "headers": {
                 'Content-Type': 'application/json'
