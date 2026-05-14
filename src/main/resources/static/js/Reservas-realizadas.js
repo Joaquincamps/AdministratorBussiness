@@ -47,7 +47,83 @@ async function listarReservas() {
     }
 }
 
+async function listarReservaPorTrabajador(idTrabajador) {
+    try {
+        const response = await fetch(URL_BASE + `listar/trabajador/${idTrabajador}`, {
+            "method": "GET",
+            "headers": {
+                'Content-Type': 'application/json'
+            },
+        })
+
+        if (!response.ok) throw new Error("No hubo respuesta de la API");
+        const data = await response.json();
+        let body = '';
+        data.forEach(d => {
+            body +=
+                `
+                <tr>
+                    <td><span class="fw-bold">${d.fecha}</span></td>
+                    <td><span class="time-badge">${d.horaInicio} - ${d.horaFin}</span></td>
+                    <td>
+                        <div class="client-info">
+                            <div class="client-avatar"><i class="bi bi-person"></i></div>
+                            <div>
+                                <div class="fw-bold">${d.cliente ? d.cliente.nombre : 'Cliente no encontrado'}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="client-info">
+                            <div class="client-avatar"><i class="bi bi-person"></i></div>
+                            <div>
+                                <div class="fw-bold">${d.trabajador ? d.trabajador.nombre : 'Trabajador no encontrado'}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-end">
+                        <button class="btn btn-outline-danger btn-sm rounded-pill" onclick="eliminar(${d.id})">
+                            <i class="bi bi-trash"></i> Cancelar
+                        </button>
+                    </td>
+                </tr>
+        `
+        });
+        document.getElementById('listaReservas').innerHTML = body;
+
+    } catch (error) {
+        console.log("Error al acceder a la API")
+    }
+
+}
+
 document.addEventListener('DOMContentLoaded', listarReservas);
+
+async function listarTrabajadores() {
+    try {
+        const response = await fetch(URL_BASE + "listar/trabajadores", {
+            "method": "GET",
+            "headers": {
+                'Content-Type': 'application/json'
+            }
+        })
+        if (!response.ok) throw new Error("Error al acceder a la API");
+        const data = await response.json();
+        let body = '<option value="" selected disabled>Seleccione un trabajador...</option>';
+        data.forEach(d => {
+            body +=
+                `
+            <option value = "${d.id}">${d.nombre}</option>
+            `
+        })
+        document.getElementById('trabajadoresSelect').innerHTML = body;
+    } catch (error) {
+        console.log("Error al acceder a la API")
+    }
+
+}
+
+listarTrabajadores();
 
 async function eliminar(id) {
     try {

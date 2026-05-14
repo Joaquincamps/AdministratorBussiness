@@ -3,8 +3,11 @@ package com.example.AdministratorBussiness.servicio;
 import com.example.AdministratorBussiness.dto.reserva.ReservaDto;
 import com.example.AdministratorBussiness.modelo.Cliente;
 import com.example.AdministratorBussiness.modelo.Reserva;
+import com.example.AdministratorBussiness.modelo.Trabajador;
 import com.example.AdministratorBussiness.repositorio.ClienteRepositorio;
 import com.example.AdministratorBussiness.repositorio.ReservaRepository;
+import com.example.AdministratorBussiness.repositorio.TrabajadorRepositorio;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +22,9 @@ public class ReservaServicio {
     @Autowired
     private ClienteRepositorio clienteRepositorio;
 
+    @Autowired
+    private TrabajadorRepositorio trabajadorRepositorio;
+
     public Reserva crearReserva(ReservaDto reservaDto) {
         Reserva reserva = new Reserva();
         reserva.setFecha(reservaDto.getFecha());
@@ -28,6 +34,10 @@ public class ReservaServicio {
                 () -> new RuntimeException("Cliente no encontrado")
         );
         reserva.setCliente(cliente);
+        Trabajador trabajador = trabajadorRepositorio.findById(reservaDto.getTrabajadorId()).orElseThrow(
+            ()-> new RuntimeException("Trabajador no encontrado")
+        );
+        reserva.setTrabajador(trabajador);
         return reservaRepository.save(reserva);
     }
 

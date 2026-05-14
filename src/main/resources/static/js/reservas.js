@@ -92,9 +92,12 @@ document
 document.getElementById("tablaCitas").addEventListener("click", async (e) => {
   if (e.target.classList.contains("btn-agendar")) {
     const select = document.getElementById("selectCliente");
+    const selectWorker = document.getElementById('selectTrabajador');
     const cliente = select.value;
+    const trabajador = selectWorker.value;
     const fecha = document.getElementById("fechaAgenda").value;
     const nombreCliente = select.options[select.selectedIndex].text;
+    const nombreTrabajador = selectWorker.options[selectWorker.selectedIndex].text;
 
     if (!cliente || !fecha) {
       Swal.fire({
@@ -110,13 +113,14 @@ document.getElementById("tablaCitas").addEventListener("click", async (e) => {
       horaInicio: e.target.dataset.horaInicio,
       horaFin: e.target.dataset.horaFin,
       clienteId: cliente,
+      trabajadorId: trabajador
     };
 
-    await crearReserva(reserva, nombreCliente, e.target);
+    await crearReserva(reserva, nombreCliente, e.target, nombreTrabajador);
   }
 });
 
-async function crearReserva(reserva, nombreCliente, btnPulsado) {
+async function crearReserva(reserva, nombreCliente, btnPulsado, nombreTrabajador) {
   try {
     const urlCrearCita = URLFIJA + "crear/reserva";
     const response = await fetch(urlCrearCita, {
