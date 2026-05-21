@@ -1,11 +1,9 @@
 package com.example.AdministratorBussiness.modelo;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
+
+
 @Entity
 public class UsuarioAdministrador {
 
@@ -20,6 +18,33 @@ public class UsuarioAdministrador {
 
     public UsuarioAdministrador(String nombre, String password) {
         this.nombre = nombre;
+        this.password = password;
+    }
+
+    public UsuarioAdministrador() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
         this.password = password;
     }
 }
