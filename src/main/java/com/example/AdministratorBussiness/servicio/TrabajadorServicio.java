@@ -4,6 +4,7 @@ import com.example.AdministratorBussiness.dto.trabajador.DtoActualizarTrabajador
 import com.example.AdministratorBussiness.dto.trabajador.DtoCrearTrabajador;
 import com.example.AdministratorBussiness.modelo.Trabajador;
 import com.example.AdministratorBussiness.repositorio.TrabajadorRepositorio;
+import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,19 @@ public class TrabajadorServicio {
 
     @Autowired
     private TrabajadorRepositorio trabajadorRepositorio;
+
+    @Autowired
+    private javax.sql.DataSource dataSource;
+
+    @PostConstruct
+    public void debugConnection() throws Exception {
+        System.out.println(dataSource.getConnection().getMetaData().getURL());
+    }
+
+    @PostConstruct
+    public void test() {
+        System.out.println("TRABAJADORES BD: " + trabajadorRepositorio.findAll().size());
+    }
 
     public void agregarTrabajador(DtoCrearTrabajador createTrabajador) {
         if (trabajadorRepositorio.existsByEmail(createTrabajador.getEmail())) {
@@ -68,7 +82,7 @@ public class TrabajadorServicio {
 
         trabajadorBuscar.setPuesto(updateTrabajador.getPuesto());
         trabajadorBuscar.setSalario(updateTrabajador.getSalario());
-        trabajadorBuscar.setHoraEntrada(updateTrabajador.getHoraSalida());
+        trabajadorBuscar.setHoraEntrada(updateTrabajador.getHoraEntrada());
         trabajadorBuscar.setHoraSalida(updateTrabajador.getHoraSalida());
         trabajadorBuscar.setActivo(updateTrabajador.isActivo());
         trabajadorBuscar.setDeVacaciones(updateTrabajador.isDeVacaciones());

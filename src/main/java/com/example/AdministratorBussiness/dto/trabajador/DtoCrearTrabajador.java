@@ -50,6 +50,14 @@ public class DtoCrearTrabajador {
         return nombre;
     }
 
+    public void setHoraEntrada(String horaEntrada) {
+        this.horaEntrada = horaEntrada;
+    }
+
+    public void setHoraSalida(String horaSalida) {
+        this.horaSalida = horaSalida;
+    }
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }

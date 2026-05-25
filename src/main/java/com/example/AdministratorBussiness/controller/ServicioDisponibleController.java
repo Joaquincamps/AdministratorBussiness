@@ -92,7 +92,7 @@ public class ServicioDisponibleController {
         double valorPorFecha = serviciosDisponibles.calcularTotalDeDiaEspecifico(fecha);
         List<Servicio> servicios = serviciosDisponibles.listarServicios();
 
-        model.addAttribute("total", valorPorFecha);
+        model.addAttribute("totalDia", valorPorFecha);
         model.addAttribute("servicios", servicios);
 
         return "historial-servicios";
@@ -115,7 +115,7 @@ public class ServicioDisponibleController {
     public String calcularPrecioPorServicio(@RequestParam Long idServicio, Model model) {
         Double total = serviciosDisponibles.calcularPrecioPorServicio(idServicio);
 
-        model.addAttribute("total", total);
+        model.addAttribute("totalServicio", total);
         model.addAttribute("servicios", serviciosDisponibles.listarServicios());
         return "historial-servicios";
     }
