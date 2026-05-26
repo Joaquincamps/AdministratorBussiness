@@ -106,7 +106,7 @@ public class ProveedorController {
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("mensaje", "No se pudo actualizar el proveedor");
         }
-        return "proveedores";
+        return "redirect:/proveedores";
     }
 
     @GetMapping("/proveedores/email/{id}")

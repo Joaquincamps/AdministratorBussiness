@@ -36,7 +36,7 @@
 
         <div class="card-body">
 
-            <form th:action="@{/proveedores/editar/{id}(id=${proveedorid})}" th:object="${proveedor}" method="post">
+            <form th:action="@{/proveedores/editar/{id}(id=${proveedor.id})}" th:object="${proveedor}" method="post">
                 <input type="hidden" th:field="*{id}">
                 <div class="mb-3">
                     <label class="form-label">Nombre Empresa</label>
