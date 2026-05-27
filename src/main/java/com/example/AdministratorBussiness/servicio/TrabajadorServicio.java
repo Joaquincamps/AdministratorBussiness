@@ -81,7 +81,6 @@ public class TrabajadorServicio {
         );
 
         trabajadorBuscar.setPuesto(updateTrabajador.getPuesto());
-        trabajadorBuscar.setSalario(updateTrabajador.getSalario());
         trabajadorBuscar.setHoraEntrada(updateTrabajador.getHoraEntrada());
         trabajadorBuscar.setHoraSalida(updateTrabajador.getHoraSalida());
         trabajadorBuscar.setActivo(updateTrabajador.isActivo());
