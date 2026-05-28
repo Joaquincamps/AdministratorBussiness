@@ -15,4 +15,7 @@ public interface ProveedorRepositorio extends JpaRepository<Proveedor, Long> {
 
     @Query("SELECT p FROM Proveedor p WHERE p.nombreEmpresa LIKE %:entrada% OR p.personaContacto LIKE %:entrada%")
     List<Proveedor> findProveedor(@Param("entrada") String entrada);
+
+    @Query("SELECT COUNT(p) FROM Proveedor p")
+    Long contarProveedor();
 }

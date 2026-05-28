@@ -71,6 +71,10 @@ public class ProveedorServicio {
         return pro;
     }
 
+    public Long contarProveedores() {
+        return proveedorRepositorio.contarProveedor();
+    }
+
     public void actualizarProveedor(DtoActuProveedor dtoActuProveedor, Long id) {
         Proveedor proveedorBuscar = proveedorRepositorio.findById(id).orElseThrow(
                 () -> new RuntimeException("Proveedor no encontrado")

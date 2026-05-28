@@ -55,6 +55,10 @@ public class ProductoServicio {
         }
     }
 
+    public Long contarProductos() {
+        return productoRepositorio.contarProductos();
+    }
+
     public List<Producto> listarProductos() {
         return productoRepositorio.findAll();
     }

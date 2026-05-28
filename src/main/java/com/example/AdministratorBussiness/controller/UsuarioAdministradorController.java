@@ -1,7 +1,7 @@
 package com.example.AdministratorBussiness.controller;
 
 import com.example.AdministratorBussiness.modelo.UsuarioAdministrador;
-import com.example.AdministratorBussiness.servicio.UsuarioAdministradorServicio;
+import com.example.AdministratorBussiness.servicio.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,11 +16,24 @@ public class UsuarioAdministradorController {
     @Autowired
     private UsuarioAdministradorServicio usuarioAdministradorServicio;
 
+    @Autowired
+    private TrabajadorServicio trabajadorServicio;
+
+    @Autowired
+    private ClienteServicio clienteServicio;
+
+    @Autowired
+    private ProveedorServicio proveedorServicio;
+
+    @Autowired
+    private ProductoServicio productoServicio;
+
     @GetMapping("/registro")
     public String mostrarRegistro(Model model) {
         model.addAttribute("administrador", new UsuarioAdministrador());
         return "registrar";
     }
+
     @PostMapping("/admin/registrar")
     public String registrarUsuarioAdmin(@ModelAttribute("administrador") UsuarioAdministrador usuarioAdministrador,
                                         RedirectAttributes redirectAttributes) {
@@ -38,6 +51,7 @@ public class UsuarioAdministradorController {
         model.addAttribute("loginUsuario", new UsuarioAdministrador());
         return "index";
     }
+
     @PostMapping("/admin/login")
     public String logearAdmin(@ModelAttribute("loginUsuario") UsuarioAdministrador usuarioAdministrador,
                               RedirectAttributes redirectAttributes) {
@@ -52,7 +66,11 @@ public class UsuarioAdministradorController {
     }
 
     @GetMapping("/dashboard")
-    public String dashboard() {
+    public String dashboard(Model model) {
+        model.addAttribute("totalTrabajadores", trabajadorServicio.contarTrabajadores());
+        model.addAttribute("totalClientes", clienteServicio.contarClientes());
+        model.addAttribute("totalProveedores", proveedorServicio.contarProveedores());
+        model.addAttribute("totalProductos", productoServicio.contarProductos());
         return "dashboard";
     }
 }

@@ -97,6 +97,10 @@ public class ClienteServicio {
         }
     }
 
+    public Long contarClientes() {
+        return clienteRepositorio.contarClientes();
+    }
+
     public void enviarMensajeAlCliente(String numeroCliente, String mensajeEnviar) {
 
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);

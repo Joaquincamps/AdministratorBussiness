@@ -36,6 +36,11 @@ public class TrabajadorServicio {
         System.out.println("TRABAJADORES BD: " + trabajadorRepositorio.findAll().size());
     }
 
+    public Long contarTrabajadores() {
+        return trabajadorRepositorio.numeroDeTrabajadores();
+
+    }
+
     public void agregarTrabajador(DtoCrearTrabajador createTrabajador) {
         if (trabajadorRepositorio.existsByEmail(createTrabajador.getEmail())) {
             throw new RuntimeException("El trabajador ya existe.");
@@ -75,7 +80,7 @@ public class TrabajadorServicio {
         return trabajadorBuscar;
     }
 
-    public void actualizarTrabajador(DtoActualizarTrabajador updateTrabajador ,Long id) {
+    public void actualizarTrabajador(DtoActualizarTrabajador updateTrabajador, Long id) {
         Trabajador trabajadorBuscar = trabajadorRepositorio.findById(id).orElseThrow(
                 () -> new RuntimeException("No existe el trabajador")
         );

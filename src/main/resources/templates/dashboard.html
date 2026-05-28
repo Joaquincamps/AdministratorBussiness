@@ -11,7 +11,7 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="../static/css/dashboard.css" />
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}" />
   </head>
 
   <body>
@@ -73,6 +73,7 @@
                 <div class="card-body">
                   <h5>Trabajadores</h5>
                   <p>Gestión del personal</p>
+                  <span th:text="'Total: ' + ${totalTrabajadores}"></span>
                 </div>
               </div>
             </div>
@@ -82,6 +83,7 @@
                 <div class="card-body">
                   <h5>Clientes</h5>
                   <p>Base de clientes</p>
+                  <span th:text="'Total: ' + ${totalClientes}"></span>
                 </div>
               </div>
             </div>
@@ -91,6 +93,7 @@
                 <div class="card-body">
                   <h5>Proveedores</h5>
                   <p>Gestión de proveedores</p>
+                  <span th:text="'Total: ' + ${totalProveedores}"></span>
                 </div>
               </div>
             </div>
@@ -100,6 +103,7 @@
                 <div class="card-body">
                   <h5>Productos</h5>
                   <p>Inventario</p>
+                  <span th:text="'Total: ' + ${totalProductos}"></span>
                 </div>
               </div>
             </div>
