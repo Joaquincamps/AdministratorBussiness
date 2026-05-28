@@ -4,9 +4,11 @@ import com.example.AdministratorBussiness.dto.trabajador.DtoActualizarTrabajador
 import com.example.AdministratorBussiness.dto.trabajador.DtoCrearTrabajador;
 import com.example.AdministratorBussiness.modelo.Trabajador;
 import com.example.AdministratorBussiness.servicio.TrabajadorServicio;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -28,14 +30,26 @@ public class TrabajadorController {
 
     //agregar un trabajador a mano
     @PostMapping("/trabajadores/nuevo")
-    public String agregarTrabajador(@ModelAttribute("trabajador") DtoCrearTrabajador trabajador,
-                                    RedirectAttributes redirectAttributes) {
+    public String agregarTrabajador(
+            @Valid @ModelAttribute("trabajador") DtoCrearTrabajador trabajador,
+            BindingResult result,
+            RedirectAttributes redirectAttributes) {
+
+        if (result.hasErrors()) {
+            redirectAttributes.addFlashAttribute("mensaje",
+                    "Debes rellenar todos los campos obligatorios");
+            return "redirect:/trabajadores/nuevo";
+        }
+
         try {
             trabajadorServicio.agregarTrabajador(trabajador);
-            redirectAttributes.addFlashAttribute("mensajeExito", "Trabajador agregado con éxito");
+            redirectAttributes.addFlashAttribute("mensaje",
+                    "Trabajador agregado con éxito");
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("mensajeError", e.getMessage());
+            redirectAttributes.addFlashAttribute("mensaje",
+                    "Fallo al crear el trabajador");
         }
+
         return "redirect:/trabajadores";
     }
 
@@ -57,9 +71,13 @@ public class TrabajadorController {
             redirectAttributes.addFlashAttribute("mensaje", "El fichero está vacío");
             return "redirect:/trabajadores";
         }
-        trabajadorServicio.importarTrabajadoresCsv(ficheroCsv);
+        try {
+            trabajadorServicio.importarTrabajadoresCsv(ficheroCsv);
+            redirectAttributes.addFlashAttribute("mensaje", "CSV importado correctamente");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("mensaje", "Fallo al importar el fichero");
+        }
 
-        redirectAttributes.addFlashAttribute("mensajeExito", "CSV importado correctamente");
         return "redirect:/trabajadores";
     }
 
@@ -78,19 +96,39 @@ public class TrabajadorController {
     }
 
     @GetMapping("/trabajadores/editar/{id}")
-    public String obtenerDatosTrabajador(Model model,@PathVariable Long id) {
+    public String obtenerDatosTrabajador(Model model, @PathVariable Long id) {
         model.addAttribute("trabajador", trabajadorServicio.obtenerTrabajador(id));
         return "trabajador-editar";
     }
+
     @PostMapping("/trabajadores/actualizar/{id}")
-    public String actualizarValoresTrabajador(@ModelAttribute("trabajador") DtoActualizarTrabajador updateTrabajador
-    , @PathVariable Long id, RedirectAttributes redirectAttributes ) {
-        try {
-            trabajadorServicio.actualizarTrabajador(updateTrabajador,id);
-            redirectAttributes.addFlashAttribute("mensajeExito", "Trabajador editado con éxito");
-        }catch (Exception e){
-            redirectAttributes.addFlashAttribute("mensajeError", e.getMessage());
+    public String actualizarValoresTrabajador(
+            @Valid @ModelAttribute("trabajador") DtoActualizarTrabajador updateTrabajador,
+            BindingResult result,
+            @PathVariable Long id,
+            RedirectAttributes redirectAttributes) {
+
+        if (result.hasErrors()) {
+            redirectAttributes.addFlashAttribute(
+                    "mensaje",
+                    "Debes rellenar correctamente los campos");
+            return "redirect:/trabajadores/editar/" + id;
         }
+
+        try {
+            trabajadorServicio.actualizarTrabajador(updateTrabajador, id);
+
+            redirectAttributes.addFlashAttribute(
+                    "mensaje",
+                    "Trabajador editado con éxito");
+
+        } catch (Exception e) {
+
+            redirectAttributes.addFlashAttribute(
+                    "mensaje",
+                    e.getMessage());
+        }
+
         return "redirect:/trabajadores";
     }
 }

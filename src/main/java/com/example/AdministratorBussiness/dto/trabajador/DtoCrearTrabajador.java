@@ -1,25 +1,33 @@
 package com.example.AdministratorBussiness.dto.trabajador;
 
-import jakarta.persistence.Column;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
-import java.time.LocalDate;
 
 public class DtoCrearTrabajador {
 
+    @NotBlank(message = "No puede estar vacio")
     private String nombre, apellido, puesto;
 
+    @NotBlank(message = "No puede estar vacio")
     private String email;
 
+    @NotNull(message = "No puede estar vacio")
     private double salario;
 
+    @NotBlank(message = "No puede estar vacio")
     private String horaEntrada;
 
+    @NotBlank(message = "No puede estar vacio")
     private String horaSalida;
 
+    @NotNull(message = "No puede estar vacio")
     private boolean activo;
 
+    @NotNull(message = "No puede estar vacio")
     private boolean deVacaciones;
 
+    @NotNull(message = "No puede estar vacio")
     private boolean deLibranza;
 
     public DtoCrearTrabajador() {

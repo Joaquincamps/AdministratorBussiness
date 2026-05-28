@@ -22,6 +22,10 @@
 </nav>
 
 <div class="container mt-4">
+  <!-- MENSAJES -->
+      <div th:if="${mensaje}" class="alert alert-success">
+        <span th:text="${mensaje}"></span>
+      </div>
     <div class="card mx-auto" style="max-width: 600px;">
         <div class="card-header bg-primary text-white">
             Crear Nuevo Trabajador
