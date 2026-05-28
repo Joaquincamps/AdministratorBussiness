@@ -21,6 +21,10 @@
     </nav>
 
     <div class="container mt-4">
+      <!-- MENSAJES -->
+      <div th:if="${mensaje}" class="alert alert-success">
+        <span th:text="${mensaje}"></span>
+      </div>
       <!-- TITULO Y BOTON AÑADIR CLIENTE -->
       <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>Gestión de Clientes</h2>
